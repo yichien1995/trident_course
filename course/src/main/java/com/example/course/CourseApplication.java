@@ -12,7 +12,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
                 @Server(url = "/", description = "Default Server URL")
         },
         info = @Info(
-                description = "This project is only for job placement."
+                description = "This project is only for job application purposes."
         )
 )
 public class CourseApplication {

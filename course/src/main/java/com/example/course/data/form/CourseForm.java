@@ -3,11 +3,13 @@ package com.example.course.data.form;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import java.time.LocalTime;
 
 @Data
+@AllArgsConstructor
 public class CourseForm {
 
     @NotBlank(message = "Name cannot be null or empty.")

@@ -99,7 +99,7 @@ public class CourseController {
                                     }
                                      """)))
     })
-    @PostMapping(consumes = {"application/json"})
+    @PostMapping(path = "/course", consumes = {"application/json"})
     public ResponseEntity<?> createCourse(@Valid @RequestBody @io.swagger.v3.oas.annotations.parameters.RequestBody(
             content = @Content(mediaType = "application/json",
                     schema = @Schema(implementation = CourseForm.class),

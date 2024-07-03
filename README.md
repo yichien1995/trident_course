@@ -1,3 +1,3 @@
 # Trident_course_management_system
-## description
+## Description
 This project is only for job application purposes.

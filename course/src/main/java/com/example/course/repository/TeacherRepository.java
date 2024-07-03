@@ -7,7 +7,12 @@ import java.util.List;
 
 public interface TeacherRepository {
     void saveTeacherToDB(TeacherForm form, long userId);
-    boolean checkTeacherExists(long userId);
 
-    List<TeacherDto> findAllTeachers();
+    boolean checkTeacherExistsByUserId(long userId);
+
+    boolean checkTeacherExists(long id);
+
+    List<TeacherDto> getAllTeachers();
+
+    TeacherDto findTeacherById(long id);
 }

@@ -21,26 +21,40 @@ public class TeacherRepositoryImpl implements TeacherRepository {
     }
 
     @Override
-    public void saveTeacherToDB(TeacherForm form,long userId){
+    public void saveTeacherToDB(TeacherForm form, long userId) {
         String sql = "INSERT INTO teacher(name, department, user_id) VALUES (?,?,?)";
-        jdbcTemplate.update(sql,form.getName(),form.getDepartment(),userId);
+        jdbcTemplate.update(sql, form.getName(), form.getDepartment(), userId);
     }
 
     @Override
-    public boolean checkTeacherExists(long userId) {
+    public boolean checkTeacherExistsByUserId(long userId) {
         String sql = "SELECT COUNT(id) FROM teacher WHERE user_id = ?";
         int result = jdbcTemplate.queryForObject(sql, Integer.class, userId);
         return result == 1;
     }
 
     @Override
-    public List<TeacherDto> findAllTeachers(){
-        String sql = "SELECT t.id, u.email, t.name, t.department FROM teacher AS t JOIN user AS u ON t.user_id = u.id;";
-        RowMapper<TeacherDto> mapper = getTeacherDtoRowMapper();
-        return jdbcTemplate.query(sql,mapper);
+    public boolean checkTeacherExists(long id) {
+        String sql = "SELECT COUNT(id) FROM teacher WHERE id = ?";
+        int result = jdbcTemplate.queryForObject(sql, Integer.class, id);
+        return result == 1;
     }
 
-    private RowMapper<TeacherDto> getTeacherDtoRowMapper(){
+    @Override
+    public List<TeacherDto> getAllTeachers() {
+        String sql = "SELECT t.id, u.email, t.name, t.department FROM teacher AS t JOIN user AS u ON t.user_id = u.id;";
+        RowMapper<TeacherDto> mapper = getTeacherDtoRowMapper();
+        return jdbcTemplate.query(sql, mapper);
+    }
+
+    @Override
+    public TeacherDto findTeacherById(long id) {
+        String sql = "SELECT t.id, u.email, t.name, t.department FROM teacher AS t JOIN user AS u ON t.user_id = u.id WHERE t.id = ?;";
+        RowMapper<TeacherDto> mapper = getTeacherDtoRowMapper();
+        return jdbcTemplate.queryForObject(sql, mapper, id);
+    }
+
+    private RowMapper<TeacherDto> getTeacherDtoRowMapper() {
         return new RowMapper<TeacherDto>() {
             @Override
             public TeacherDto mapRow(ResultSet rs, int rowNum) throws SQLException {

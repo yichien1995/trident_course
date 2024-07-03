@@ -25,22 +25,22 @@ public class TeacherServiceImpl implements TeacherService {
     }
 
     @Override
-    public void saveTeacher(TeacherForm form){
+    public void saveTeacher(TeacherForm form) {
         String email = form.getEmail();
         boolean emailExists = userRepository.checkEmailExists(email);
-        if(!emailExists){
+        if (!emailExists) {
             throw new UserNotFoundException("User doesn't exists.");
         }
         long userId = userRepository.getUserIdByEmail(email);
-        boolean teacherExists = teacherRepository.checkTeacherExists(userId);
-        if(teacherExists){
+        boolean teacherExists = teacherRepository.checkTeacherExistsByUserId(userId);
+        if (teacherExists) {
             throw new ValidationException("The teacher already exists.");
         }
-        teacherRepository.saveTeacherToDB(form,userId);
+        teacherRepository.saveTeacherToDB(form, userId);
     }
 
     @Override
-    public List<TeacherDto> getTeachers(){
-        return teacherRepository.findAllTeachers();
+    public List<TeacherDto> getTeachers() {
+        return teacherRepository.getAllTeachers();
     }
 }
